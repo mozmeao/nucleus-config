@@ -29,7 +29,7 @@ spec:
       containers:
       - env:
         - name: ALLOWED_HOSTS
-          value: nucleus-dev.frankfurt.moz.works
+          value: "*"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
