@@ -1,27 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "49"
-    kubernetes.io/change-cause: jenkins changed DATABASE_URL
-  creationTimestamp: 2017-07-25T20:56:28Z
-  generation: 51
   labels:
     app: nucleus-dev
-    heritage: deis
-    type: cmd
-  name: nucleus-dev-cmd
+    type: web
+  name: nucleus-dev
   namespace: nucleus-dev
-  resourceVersion: "145704636"
-  selfLink: /apis/extensions/v1beta1/namespaces/nucleus-dev/deployments/nucleus-dev-cmd
-  uid: baaf89a7-717b-11e7-8dc9-02859405480d
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nucleus-dev
-      heritage: deis
-      type: cmd
+      type: web
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -32,147 +22,72 @@ spec:
       creationTimestamp: null
       labels:
         app: nucleus-dev
-        heritage: deis
-        type: cmd
-        version: v51
-      name: nucleus-dev-cmd
+        type: web
+      name: nucleus-dev
       namespace: nucleus-dev
     spec:
       containers:
       - env:
         - name: ALLOWED_HOSTS
-          valueFrom:
-            secretKeyRef:
-              key: allowed-hosts
-              name: nucleus-dev-v51-env
+          value: nucleus-dev.frankfurt.moz.works
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: database-url
-              name: nucleus-dev-v51-env
-        - name: DEBUG
-          valueFrom:
-            secretKeyRef:
-              key: debug
-              name: nucleus-dev-v51-env
+              name: nucleus-dev-secrets
         - name: DEIS_APP
-          valueFrom:
-            secretKeyRef:
-              key: deis-app
-              name: nucleus-dev-v51-env
+          value: nucleus-dev
         - name: DISABLE_SSL
-          valueFrom:
-            secretKeyRef:
-              key: disable-ssl
-              name: nucleus-dev-v51-env
+          value: "true"
         - name: HTTPS
-          valueFrom:
-            secretKeyRef:
-              key: https
-              name: nucleus-dev-v51-env
+          value: "on"
         - name: NEW_RELIC_APP_NAME
-          valueFrom:
-            secretKeyRef:
-              key: new-relic-app-name
-              name: nucleus-dev-v51-env
+          value: nucleus-dev-frankfurt
         - name: NEW_RELIC_CONFIG_FILE
-          valueFrom:
-            secretKeyRef:
-              key: new-relic-config-file
-              name: nucleus-dev-v51-env
+          value: /app/newrelic.ini
         - name: NEW_RELIC_LICENSE_KEY
           valueFrom:
             secretKeyRef:
               key: new-relic-license-key
-              name: nucleus-dev-v51-env
+              name: nucleus-dev-secrets
         - name: OIDC_ENABLE
-          valueFrom:
-            secretKeyRef:
-              key: oidc-enable
-              name: nucleus-dev-v51-env
+          value: "True"
         - name: OIDC_OP_AUTHORIZATION_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              key: oidc-op-authorization-endpoint
-              name: nucleus-dev-v51-env
+          value: https://auth.mozilla.auth0.com/authorize
         - name: OIDC_OP_TOKEN_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              key: oidc-op-token-endpoint
-              name: nucleus-dev-v51-env
+          value: https://auth.mozilla.auth0.com/oauth/token
         - name: OIDC_OP_USER_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              key: oidc-op-user-endpoint
-              name: nucleus-dev-v51-env
+          value: https://auth.mozilla.auth0.com/userinfo
         - name: OIDC_RP_CLIENT_ID
           valueFrom:
             secretKeyRef:
               key: oidc-rp-client-id
-              name: nucleus-dev-v51-env
+              name: nucleus-dev-secrets
         - name: OIDC_RP_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
               key: oidc-rp-client-secret
-              name: nucleus-dev-v51-env
-        - name: PORT
-          valueFrom:
-            secretKeyRef:
-              key: port
-              name: nucleus-dev-v51-env
+              name: nucleus-dev-secrets
         - name: RNA_JSON_CACHE_TIME
-          valueFrom:
-            secretKeyRef:
-              key: rna-json-cache-time
-              name: nucleus-dev-v51-env
+          value: "120"
         - name: SAML_CREATE_USER
-          valueFrom:
-            secretKeyRef:
-              key: saml-create-user
-              name: nucleus-dev-v51-env
+          value: "False"
         - name: SAML_ENABLE
-          valueFrom:
-            secretKeyRef:
-              key: saml-enable
-              name: nucleus-dev-v51-env
+          value: "True"
         - name: SAML_ENTITY_ID
-          valueFrom:
-            secretKeyRef:
-              key: saml-entity-id
-              name: nucleus-dev-v51-env
+          value: nucleus-dev.frankfurt.moz.works/saml2/metadata/
         - name: SAML_REMOTE_METADATA
-          valueFrom:
-            secretKeyRef:
-              key: saml-remote-metadata
-              name: nucleus-dev-v51-env
+          value: stage.xml
         - name: SAML_SSO_URL
-          valueFrom:
-            secretKeyRef:
-              key: saml-sso-url
-              name: nucleus-dev-v51-env
+          value: https://nucleus-dev.frankfurt.moz.works/saml2/acs/
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret-key
-              name: nucleus-dev-v51-env
-        - name: WORKFLOW_RELEASE
-          valueFrom:
-            secretKeyRef:
-              key: workflow-release
-              name: nucleus-dev-v51-env
-        - name: WORKFLOW_RELEASE_CREATED_AT
-          valueFrom:
-            secretKeyRef:
-              key: workflow-release-created-at
-              name: nucleus-dev-v51-env
-        - name: WORKFLOW_RELEASE_SUMMARY
-          valueFrom:
-            secretKeyRef:
-              key: workflow-release-summary
-              name: nucleus-dev-v51-env
-        image: 127.0.0.1:5555/nucleus-dev:v51
+              name: nucleus-dev-secrets
+        image: mozmeao/nucleus:bdd46620b19bd300a6da4308e3c26f6618350744
         imagePullPolicy: Always
-        name: nucleus-dev-cmd
+        name: nucleus-dev-web
         readinessProbe:
           failureThreshold: 1
           initialDelaySeconds: 5
@@ -189,16 +104,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: 2018-09-05T02:42:38Z
-    lastUpdateTime: 2018-09-05T02:42:38Z
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  observedGeneration: 51
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
