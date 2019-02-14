@@ -35,6 +35,8 @@ spec:
             secretKeyRef:
               key: database-url
               name: nucleus-dev-secrets
+        - name: DEBUG
+          value: "False"
         - name: DEIS_APP
           value: nucleus-dev
         - name: DISABLE_SSL
