@@ -2,12 +2,10 @@ iowa-b kubectl apply:
   only:
     - master
     - gcp
-  variables:
-    KUBE_CONFIG: iowa-b
   tags:
     - gcp
     - meao
   script:
-    - kubectl_1.12  apply -f iowa-b/nucleus-dev/nucleus-dev-ns.yaml
-    - kubectl_1.12 -n nucleus-dev apply -f iowa-b/nucleus-dev/deploy.yaml
-    - kubectl_1.12 -n nucleus-dev apply -f iowa-b/nucleus-dev/svc.yaml
+    - KUBE_CONFIG=iowa-b kubectl_1.12  apply -f iowa-b/nucleus-dev/nucleus-dev-ns.yaml
+    - KUBE_CONFIG=iowa-b kubectl_1.12 -n nucleus-dev apply -f iowa-b/nucleus-dev/deploy.yaml
+    - KUBE_CONFIG=iowa-b kubectl_1.12 -n nucleus-dev apply -f iowa-b/nucleus-dev/svc.yaml
