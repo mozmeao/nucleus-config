@@ -1,0 +1,8 @@
+iowa-b kubectl apply:
+  only:
+    - master
+    - gcp
+  variables:
+    KUBE_CONFIG: iowa-b
+  script:
+    - kubectl_1.12 -n nucleus-dev apply -f iowa-b/nucleus-dev/*.yaml

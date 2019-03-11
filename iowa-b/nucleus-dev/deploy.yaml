@@ -1,0 +1,109 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: nucleus-dev
+    type: web
+  name: nucleus-dev
+  namespace: nucleus-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nucleus-dev
+      type: web
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nucleus-dev
+        type: web
+      name: nucleus-dev
+      namespace: nucleus-dev
+    spec:
+      containers:
+      - env:
+        - name: ALLOWED_HOSTS
+          value: "*"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database-url
+              name: nucleus-dev-secrets
+        - name: DEBUG
+          value: "False"
+        - name: DEIS_APP
+          value: nucleus-dev
+        - name: DISABLE_SSL
+          value: "true"
+        - name: HTTPS
+          value: "on"
+        - name: NEW_RELIC_APP_NAME
+          value: nucleus-dev-frankfurt
+        - name: NEW_RELIC_CONFIG_FILE
+          value: /app/newrelic.ini
+        - name: NEW_RELIC_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: new-relic-license-key
+              name: nucleus-dev-secrets
+        - name: OIDC_ENABLE
+          value: "True"
+        - name: OIDC_OP_AUTHORIZATION_ENDPOINT
+          value: https://auth.mozilla.auth0.com/authorize
+        - name: OIDC_OP_TOKEN_ENDPOINT
+          value: https://auth.mozilla.auth0.com/oauth/token
+        - name: OIDC_OP_USER_ENDPOINT
+          value: https://auth.mozilla.auth0.com/userinfo
+        - name: OIDC_RP_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-id
+              name: nucleus-dev-secrets
+        - name: OIDC_RP_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-secret
+              name: nucleus-dev-secrets
+        - name: RNA_JSON_CACHE_TIME
+          value: "120"
+        - name: SAML_CREATE_USER
+          value: "False"
+        - name: SAML_ENABLE
+          value: "True"
+        - name: SAML_ENTITY_ID
+          value: nucleus-dev.frankfurt.moz.works/saml2/metadata/
+        - name: SAML_REMOTE_METADATA
+          value: stage.xml
+        - name: SAML_SSO_URL
+          value: https://nucleus-dev.frankfurt.moz.works/saml2/acs/
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret-key
+              name: nucleus-dev-secrets
+        image: mozmeao/nucleus:bdd46620b19bd300a6da4308e3c26f6618350744
+        imagePullPolicy: Always
+        name: nucleus-dev-web
+        readinessProbe:
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          # may want to switch to http check against /healthz/ later
+          tcpSocket:
+            port: 8000
+          timeoutSeconds: 5
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
