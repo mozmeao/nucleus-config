@@ -4,5 +4,8 @@ iowa-b kubectl apply:
     - gcp
   variables:
     KUBE_CONFIG: iowa-b
+  tags:
+    - gcp
+    - meao
   script:
     - kubectl_1.12 -n nucleus-dev apply -f iowa-b/nucleus-dev/*.yaml
