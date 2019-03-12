@@ -5,6 +5,4 @@ iowa-b kubectl apply:
     - gcp
     - meao
   script:
-    - kubectl_1.12 --kubeconfig $KUBE_CONFIG apply -f iowa-b/nucleus-dev/nucleus-dev-ns.yaml
-    - kubectl_1.12 --kubeconfig $KUBE_CONFIG -n nucleus-dev apply -f iowa-b/nucleus-dev/deploy.yaml
-    - kubectl_1.12 --kubeconfig $KUBE_CONFIG -n nucleus-dev apply -f iowa-b/nucleus-dev/svc.yaml
+    - kubectl_1.12 --kubeconfig $KUBE_CONFIG apply -f iowa-b/nucleus-dev
