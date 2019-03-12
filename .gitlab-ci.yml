@@ -1,8 +1,8 @@
 iowa-b kubectl apply:
   variables:
-    KUBE_CONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
+    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
   tags:
     - gcp
     - meao
   script:
-    - kubectl_1.12 --kubeconfig $KUBE_CONFIG apply -f iowa-b/nucleus-dev
+    - kubectl_1.12 apply -f iowa-b/nucleus-dev
