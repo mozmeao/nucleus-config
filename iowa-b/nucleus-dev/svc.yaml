@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: nucleus-dev
-  name: nucleus-dev-lb
+  name: nucleus-dev
   namespace: nucleus-dev
 spec:
   ports:
@@ -14,5 +14,3 @@ spec:
   selector:
     app: nucleus-dev
     type: web
-  sessionAffinity: None
-  type: LoadBalancer
