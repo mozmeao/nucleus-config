@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - nucleus.allizom.org
-    secretName: nucleus.allizom.org
+    - nucleus-dev.allizom.org
+    secretName: nucleus-dev.allizom.org
   rules:
-  - host: nucleus.allizom.org
+  - host: nucleus-dev.allizom.org
     http:
       paths:
       - backend:
