@@ -6,11 +6,12 @@ metadata:
   labels:
     ingress: argo-tunnel
   name: nucleus-dev
+  namespace: nucleus-dev
 spec:
   tls:
   - hosts:
     - nucleus-dev.allizom.org
-    secretName: nucleus-dev.allizom.org
+    secretName: allizom.org
   rules:
   - host: nucleus-dev.allizom.org
     http:
