@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: argo-tunnel
+  labels:
+    ingress: argo-tunnel
+  name: nucleus-dev
+  namespace: nucleus-dev
+spec:
+  tls:
+  - hosts:
+    - nucleus-dev.allizom.org
+    secretName: allizom.org
+  rules:
+  - host: nucleus-dev.allizom.org
+    http:
+      paths:
+      - backend:
+          serviceName: nucleus-dev
+          servicePort: http
