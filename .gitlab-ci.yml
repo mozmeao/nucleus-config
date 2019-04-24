@@ -1,8 +1,9 @@
-iowa-b kubectl apply:
+deploy iowa-b:
   variables:
     KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
+    CLUSTER: iowa-b
   tags:
     - gcp
     - meao
   script:
-    - kubectl_1.12 apply -f iowa-b/nucleus-dev
+    - ./deploy.py
