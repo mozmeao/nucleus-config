@@ -16,38 +16,30 @@ def load_yaml(directory):
     loaded = []
     for root, dirs, files in os.walk(directory):
         for filename in files:
-            try:
+            if filename.endswith('.yaml') or filename.endswith('.yml'):
                 with open(os.path.join(root, filename)) as f:
                     loaded.append(yaml.safe_load(f))
-            except Exception as e:
-                'TODO: log exceptions we might care about'
     return loaded
 
 
-def check_unfinished_deployments(deployments):
-    unfinished = []
-    for d in deployments:
-        if d['kind'] == 'Deployment':
-            try:
-                kubectl('rollout', 'status', '-n', d['metadata']['namespace'],
-                        'deploy',  d['metadata']['name'])
-                # exit code 1 if status is not complete
-            except CalledProcessError as e:
-                print(e)
-                unfinished.append(d)
-    return unfinished
+def watch_rollout_status(deployment):
+    # timeout requires kubectl v1.12+
+    # values need to include unit abbrev, e.g. '10m', '600s'
+    timeout = os.environ.get('ROLLOUT_TIMEOUT')
+    if timeout:
+        kubectl('rollout', 'status', '-n', d['metadata']['namespace'],
+                'deploy',  d['metadata']['name'], '-w', '--timeout', timeout)
+    else:
+        kubectl('rollout', 'status', '-n', d['metadata']['namespace'],
+                'deploy',  d['metadata']['name'], '-w')
 
 
 def main():
     cluster = os.environ.get('CLUSTER', 'iowa-b')
     kubectl('apply', '-f', cluster)
-    unfinished = check_unfinished_deployments(load_yaml(cluster))
-    while unfinished:
-        sleep(5)
-        unfinished = check_unfinished_deployments(unfinished)
-        #TODO: add timeout
-        # can use -w --timeout=10m in kubectl version 1.12+
-
+    for o in load_yaml(cluster):
+        if o['kind'] == 'Deployment':
+            watch_rollout_status(o)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,9 @@
 deploy iowa-b:
   variables:
     KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
+    KUBECTL: kubectl_1.12
     CLUSTER: iowa-b
+    TIMEOUT: 10m
   tags:
     - gcp
     - meao
