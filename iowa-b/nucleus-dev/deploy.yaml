@@ -126,11 +126,11 @@ spec:
               fieldPath: metadata.namespace
         resources:
           limits:
-            cpu: 10m
-            memory: 20Mi
+            cpu: 20m
+            memory: 40Mi
           requests:
-            cpu: 10m
-            memory: 20Mi
+            cpu: 20m
+            memory: 40Mi
         volumeMounts:
         - mountPath: /etc/cloudflared
           name: tunnel-secret
