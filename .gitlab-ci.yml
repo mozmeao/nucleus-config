@@ -1,9 +1,9 @@
-deploy nucleus-dev iowa-b:
+deploy iowa-b:
   variables:
     KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
   tags:
     - gcp
     - meao
   script:
-    - kubectl_1.12 apply -f iowa-b/nucleus-dev
+    - kubectl_1.12 apply -f iowa-b
     - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
