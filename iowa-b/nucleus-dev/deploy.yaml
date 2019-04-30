@@ -44,7 +44,7 @@ spec:
         - name: HTTPS
           value: "on"
         - name: NEW_RELIC_APP_NAME
-          value: nucleus-dev-frankfurt
+          value: nucleus-dev-iowa-b
         - name: NEW_RELIC_CONFIG_FILE
           value: /app/newrelic.ini
         - name: NEW_RELIC_LICENSE_KEY
@@ -77,11 +77,11 @@ spec:
         - name: SAML_ENABLE
           value: "True"
         - name: SAML_ENTITY_ID
-          value: nucleus-dev.frankfurt.moz.works/saml2/metadata/
+          value: nucleus-dev.allizom.org/saml2/metadata/
         - name: SAML_REMOTE_METADATA
           value: stage.xml
         - name: SAML_SSO_URL
-          value: https://nucleus-dev.frankfurt.moz.works/saml2/acs/
+          value: https://nucleus-dev.allizom.org/saml2/acs/
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
