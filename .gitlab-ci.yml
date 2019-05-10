@@ -8,3 +8,13 @@ deploy iowa-b:
     - kubectl_1.12 apply -f iowa-b/nucleus-dev
     - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
     - kubectl_1.12 apply -f iowa-b/nucleus-stage
+
+deploy frankfurt:
+  variables:
+    KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
+  tags:
+    - aws
+    - frankfurt
+    - meao
+  script:
+    - kubectl_1.12 apply -f frankfurt/nucleus-dev
