@@ -4,6 +4,8 @@ deploy iowa-b:
   tags:
     - gcp
     - meao
+  only:
+    - master
   script:
     - kubectl_1.12 apply -f iowa-b/nucleus-dev
     - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
@@ -16,5 +18,8 @@ deploy frankfurt:
     - aws
     - frankfurt
     - meao
+  only:
+    - master
+    - frankfurt
   script:
     - kubectl_1.12 apply -f frankfurt/nucleus-dev
