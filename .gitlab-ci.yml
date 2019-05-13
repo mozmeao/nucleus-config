@@ -22,4 +22,5 @@ deploy frankfurt:
     - master
     - frankfurt
   script:
-    - kubectl_1.12 apply -f frankfurt/nucleus-dev
+    - kubectl_1.13 apply -f frankfurt/nucleus-dev
+    - kubectl_1.13 rollout status -f frankfurt/nucleus-dev/deploy.yaml -w --timeout=10m
