@@ -1,0 +1,222 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "30"
+    kubernetes.io/change-cause: jenkins changed DATABASE_URL, SENTRY_DSN
+  creationTimestamp: 2017-06-14T19:49:49Z
+  generation: 58
+  labels:
+    app: nucleus-prod
+    heritage: deis
+    type: cmd
+  name: nucleus-prod-cmd
+  namespace: nucleus-prod
+  resourceVersion: "162590052"
+  selfLink: /apis/extensions/v1beta1/namespaces/nucleus-prod/deployments/nucleus-prod-cmd
+  uid: a06a41f7-513a-11e7-8dc9-02859405480d
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nucleus-prod
+      heritage: deis
+      type: cmd
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nucleus-prod
+        heritage: deis
+        type: cmd
+        version: v31
+      name: nucleus-prod-cmd
+      namespace: nucleus-prod
+    spec:
+      containers:
+      - env:
+        - name: ALLOWED_HOSTS
+          valueFrom:
+            secretKeyRef:
+              key: allowed-hosts
+              name: nucleus-prod-v31-env
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database-url
+              name: nucleus-prod-v31-env
+        - name: DEBUG
+          valueFrom:
+            secretKeyRef:
+              key: debug
+              name: nucleus-prod-v31-env
+        - name: DEIS_APP
+          valueFrom:
+            secretKeyRef:
+              key: deis-app
+              name: nucleus-prod-v31-env
+        - name: DEIS_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              key: deis-domain
+              name: nucleus-prod-v31-env
+        - name: DISABLE_SSL
+          valueFrom:
+            secretKeyRef:
+              key: disable-ssl
+              name: nucleus-prod-v31-env
+        - name: HTTPS
+          valueFrom:
+            secretKeyRef:
+              key: https
+              name: nucleus-prod-v31-env
+        - name: NEW_RELIC_APP_NAME
+          valueFrom:
+            secretKeyRef:
+              key: new-relic-app-name
+              name: nucleus-prod-v31-env
+        - name: NEW_RELIC_CONFIG_FILE
+          valueFrom:
+            secretKeyRef:
+              key: new-relic-config-file
+              name: nucleus-prod-v31-env
+        - name: NEW_RELIC_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: new-relic-license-key
+              name: nucleus-prod-v31-env
+        - name: OIDC_ENABLE
+          valueFrom:
+            secretKeyRef:
+              key: oidc-enable
+              name: nucleus-prod-v31-env
+        - name: OIDC_OP_AUTHORIZATION_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              key: oidc-op-authorization-endpoint
+              name: nucleus-prod-v31-env
+        - name: OIDC_OP_TOKEN_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              key: oidc-op-token-endpoint
+              name: nucleus-prod-v31-env
+        - name: OIDC_OP_USER_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              key: oidc-op-user-endpoint
+              name: nucleus-prod-v31-env
+        - name: OIDC_RP_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-id
+              name: nucleus-prod-v31-env
+        - name: OIDC_RP_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-secret
+              name: nucleus-prod-v31-env
+        - name: PORT
+          valueFrom:
+            secretKeyRef:
+              key: port
+              name: nucleus-prod-v31-env
+        - name: SAML_CREATE_USER
+          valueFrom:
+            secretKeyRef:
+              key: saml-create-user
+              name: nucleus-prod-v31-env
+        - name: SAML_ENABLE
+          valueFrom:
+            secretKeyRef:
+              key: saml-enable
+              name: nucleus-prod-v31-env
+        - name: SAML_ENTITY_ID
+          valueFrom:
+            secretKeyRef:
+              key: saml-entity-id
+              name: nucleus-prod-v31-env
+        - name: SAML_REMOTE_METADATA
+          valueFrom:
+            secretKeyRef:
+              key: saml-remote-metadata
+              name: nucleus-prod-v31-env
+        - name: SAML_SSO_URL
+          valueFrom:
+            secretKeyRef:
+              key: saml-sso-url
+              name: nucleus-prod-v31-env
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret-key
+              name: nucleus-prod-v31-env
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              key: sentry-dsn
+              name: nucleus-prod-v31-env
+        - name: SSLIFY_DISABLE
+          valueFrom:
+            secretKeyRef:
+              key: sslify-disable
+              name: nucleus-prod-v31-env
+        - name: WORKFLOW_RELEASE
+          valueFrom:
+            secretKeyRef:
+              key: workflow-release
+              name: nucleus-prod-v31-env
+        - name: WORKFLOW_RELEASE_CREATED_AT
+          valueFrom:
+            secretKeyRef:
+              key: workflow-release-created-at
+              name: nucleus-prod-v31-env
+        - name: WORKFLOW_RELEASE_SUMMARY
+          valueFrom:
+            secretKeyRef:
+              key: workflow-release-summary
+              name: nucleus-prod-v31-env
+        image: 127.0.0.1:5555/nucleus-prod:v31
+        imagePullPolicy: Always
+        name: nucleus-prod-cmd
+        readinessProbe:
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8000
+          timeoutSeconds: 5
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 3
+  conditions:
+  - lastTransitionTime: 2019-04-18T18:37:04Z
+    lastUpdateTime: 2019-04-18T18:38:04Z
+    message: ReplicaSet "nucleus-prod-cmd-86d89657f9" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: 2019-04-18T19:51:01Z
+    lastUpdateTime: 2019-04-18T19:51:01Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 58
+  readyReplicas: 3
+  replicas: 3
+  updatedReplicas: 3
