@@ -1,0 +1,108 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: nucleus-stage
+    type: web
+  name: nucleus-stage
+  namespace: nucleus-stage
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nucleus-stage
+      type: web
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nucleus-stage
+        type: web
+      name: nucleus-stage
+      namespace: nucleus-stage
+    spec:
+      containers:
+      - env:
+        - name: ALLOWED_HOSTS
+          value: "*"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database-url
+              name: nucleus-stage-secrets
+        - name: DEBUG
+          value: "False"
+        - name: DEIS_APP
+          value: nucleus-stage
+        - name: DISABLE_SSL
+          value: "true"
+        - name: HTTPS
+          value: "on"
+        - name: NEW_RELIC_APP_NAME
+          value: nucleus-stage-frankfurt
+        - name: NEW_RELIC_CONFIG_FILE
+          value: /app/newrelic.ini
+        - name: NEW_RELIC_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: new-relic-license-key
+              name: nucleus-stage-secrets
+        - name: OIDC_ENABLE
+          value: "True"
+        - name: OIDC_OP_AUTHORIZATION_ENDPOINT
+          value: https://auth.mozilla.auth0.com/authorize
+        - name: OIDC_OP_TOKEN_ENDPOINT
+          value: https://auth.mozilla.auth0.com/oauth/token
+        - name: OIDC_OP_USER_ENDPOINT
+          value: https://auth.mozilla.auth0.com/userinfo
+        - name: OIDC_RP_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-id
+              name: nucleus-stage-secrets
+        - name: OIDC_RP_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-secret
+              name: nucleus-stage-secrets
+        - name: RNA_JSON_CACHE_TIME
+          value: "120"
+        - name: SAML_CREATE_USER
+          value: "False"
+        - name: SAML_ENABLE
+          value: "True"
+        - name: SAML_ENTITY_ID
+          value: nucleus-stage.frankfurt.moz.works/saml2/metadata/
+        - name: SAML_REMOTE_METADATA
+          value: stage.xml
+        - name: SAML_SSO_URL
+          value: https://nucleus-stage.frankfurt.moz.works/saml2/acs/
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret-key
+              name: nucleus-stage-secrets
+        image: mozmeao/nucleus:dadf617f1fc1d594c0b92219aac0055fa7563422
+        imagePullPolicy: Always
+        name: nucleus-stage-web
+        readinessProbe:
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8000
+          timeoutSeconds: 5
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
