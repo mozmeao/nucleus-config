@@ -7,14 +7,14 @@ metadata:
   name: nucleus-stage
   namespace: nucleus-stage
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: nucleus-stage
       type: web
   strategy:
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 2
       maxUnavailable: 0
     type: RollingUpdate
   template:
