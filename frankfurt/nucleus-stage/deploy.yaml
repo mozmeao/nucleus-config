@@ -37,6 +37,8 @@ spec:
               name: nucleus-stage-secrets
         - name: DEBUG
           value: "False"
+        - name: DEIS_APP
+          value: nucleus-stage
         - name: DISABLE_SSL
           value: "true"
         - name: HTTPS
