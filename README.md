@@ -2,6 +2,29 @@
 
 ## Kubernetes YAML
 
+- CI/CD: [.gitlab-ci.yml](.gitlab-ci.yml)
+  - Git branch to deploy job mapping:
+    - master
+      - frankfurt dev
+      - iowa-b dev
+      - frankfurt stage
+      - iowa-b stage
+      - frankfurt prod
+      - iowa-b prod
+    - frankfurt
+      - frankfurt dev
+      - frankfurt stage
+      - frankfurt prod
+    - iowa-b
+      - iowa-b dev
+      - iowa-b stage
+      - iowa-b prod
+    - stage
+      - frankfurt stage
+      - iowa-b stage
+    - prod
+      - frankfurt prod
+      - iowa-b prod
 - Cluster: [frankfurt](frankfurt/)
   - Namespace: [nucleus-dev](frankfurt/nucleus-dev/)
     - [Deployment](frankfurt/nucleus-dev/deploy.yaml)
