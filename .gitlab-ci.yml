@@ -11,7 +11,7 @@ deploy iowa-b:
     - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
     - kubectl_1.12 apply -f iowa-b/nucleus-stage
 
-deploy frankfurt:
+deploy frankfurt dev:
   variables:
     KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
   tags:
@@ -22,6 +22,36 @@ deploy frankfurt:
     - master
     - frankfurt
   script:
-    - kubectl_1.13 apply -f frankfurt/nucleus-dev
-    - kubectl_1.13 rollout status -f frankfurt/nucleus-dev/deploy.yaml -w --timeout=10m
-    - kubectl_1.13 apply -f frankfurt/nucleus-stage
+    - kubectl_1.11 apply -f frankfurt/nucleus-dev
+    - kubectl_1.11 rollout status -f frankfurt/nucleus-dev/deploy.yaml -w --timeout=10m
+
+deploy frankfurt stage:
+  variables:
+    KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
+  tags:
+    - aws
+    - frankfurt
+    - meao
+  only:
+    - master
+    - frankfurt
+    - stage
+  script:
+    - kubectl_1.11 apply -f frankfurt/nucleus-stage
+    - kubectl_1.11 rollout status -f frankfurt/nucleus-stage/deploy.yaml -w --timeout=10m
+
+deploy frankfurt prod:
+  variables:
+    KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
+  tags:
+    - aws
+    - frankfurt
+    - meao
+  only:
+    - master
+    - frankfurt
+    - prod
+    - frankfurt-prod
+  script:
+    - kubectl_1.11 apply -f frankfurt/nucleus-prod
+    - kubectl_1.11 rollout status -f frankfurt/nucleus-prod/deploy.yaml -w --timeout=10m
