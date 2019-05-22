@@ -1,0 +1,109 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: nucleus-prod
+    type: web
+  name: nucleus-prod
+  namespace: nucleus-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nucleus-prod
+      type: web
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nucleus-prod
+        type: web
+      name: nucleus-prod
+      namespace: nucleus-prod
+    spec:
+      containers:
+      - env:
+        - name: ALLOWED_HOSTS
+          value: "*"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: database-url
+              name: nucleus-prod-secrets
+        - name: DEBUG
+          value: "False"
+        - name: DEIS_APP
+          value: nucleus-prod
+        - name: DISABLE_SSL
+          value: "true"
+        - name: HTTPS
+          value: "on"
+        - name: NEW_RELIC_APP_NAME
+          value: nucleus-prod-frankfurt
+        - name: NEW_RELIC_CONFIG_FILE
+          value: /app/newrelic.ini
+        - name: NEW_RELIC_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: new-relic-license-key
+              name: nucleus-prod-secrets
+        - name: OIDC_ENABLE
+          value: "True"
+        - name: OIDC_OP_AUTHORIZATION_ENDPOINT
+          value: https://auth.mozilla.auth0.com/authorize
+        - name: OIDC_OP_TOKEN_ENDPOINT
+          value: https://auth.mozilla.auth0.com/oauth/token
+        - name: OIDC_OP_USER_ENDPOINT
+          value: https://auth.mozilla.auth0.com/userinfo
+        - name: OIDC_RP_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-id
+              name: nucleus-prod-secrets
+        - name: OIDC_RP_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: oidc-rp-client-secret
+              name: nucleus-prod-secrets
+        - name: RNA_JSON_CACHE_TIME
+          value: "120"
+        - name: SAML_CREATE_USER
+          value: "False"
+        - name: SAML_ENABLE
+          value: "True"
+        - name: SAML_ENTITY_ID
+          value: nucleus-prod.frankfurt.moz.works/saml2/metadata/
+        - name: SAML_REMOTE_METADATA
+          value: prod.xml
+        - name: SAML_SSO_URL
+          value: https://nucleus-prod.frankfurt.moz.works/saml2/acs/
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret-key
+              name: nucleus-prod-secrets
+        image: mozmeao/nucleus:b26b2a97e2e8fd15ee6cf909e2db4da88fc5eae9
+        imagePullPolicy: Always
+        name: nucleus-prod-web
+        readinessProbe:
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          # may want to switch this to http later
+          tcpSocket:
+            port: 8000
+          timeoutSeconds: 5
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
