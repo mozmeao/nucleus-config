@@ -87,7 +87,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-stage-secrets
-        image: mozmeao/nucleus:dadf617f1fc1d594c0b92219aac0055fa7563422
+        image: mozmeao/nucleus:b26b2a97e2e8fd15ee6cf909e2db4da88fc5eae9
         imagePullPolicy: Always
         name: nucleus-stage-web
         readinessProbe:
