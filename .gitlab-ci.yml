@@ -22,8 +22,8 @@ deploy frankfurt dev:
     - master
     - frankfurt
   script:
-    - kubectl_1.13 apply -f frankfurt/nucleus-dev
-    - kubectl_1.13 rollout status -f frankfurt/nucleus-dev/deploy.yaml -w --timeout=10m
+    - kubectl_1.11 apply -f frankfurt/nucleus-dev
+    - kubectl_1.11 rollout status -f frankfurt/nucleus-dev/deploy.yaml -w --timeout=10m
 
 deploy frankfurt stage:
   variables:
@@ -37,8 +37,8 @@ deploy frankfurt stage:
     - frankfurt
     - stage
   script:
-    - kubectl_1.13 apply -f frankfurt/nucleus-stage
-    - kubectl_1.13 rollout status -f frankfurt/nucleus-stage/deploy.yaml -w --timeout=10m
+    - kubectl_1.11 apply -f frankfurt/nucleus-stage
+    - kubectl_1.11 rollout status -f frankfurt/nucleus-stage/deploy.yaml -w --timeout=10m
 
 deploy frankfurt prod:
   variables:
@@ -53,5 +53,5 @@ deploy frankfurt prod:
     - prod
     - frankfurt-prod
   script:
-    - kubectl_1.13 apply -f frankfurt/nucleus-prod
-    - kubectl_1.13 rollout status -f frankfurt/nucleus-prod/deploy.yaml -w --timeout=10m
+    - kubectl_1.11 apply -f frankfurt/nucleus-prod
+    - kubectl_1.11 rollout status -f frankfurt/nucleus-prod/deploy.yaml -w --timeout=10m
