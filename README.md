@@ -26,18 +26,22 @@
       - frankfurt prod
       - iowa-b prod
 - Cluster: [frankfurt](frankfurt/)
-  - Namespace: [nucleus-dev](frankfurt/nucleus-dev/)
+  - [nucleus-dev](frankfurt/nucleus-dev/)
+    - [Namespace](frankfurt/nucleus-dev/ns.yaml)
     - [Deployment](frankfurt/nucleus-dev/deploy.yaml)
-      - derived from Deis Workflow managed Deployment
-    - [Service](frankfurt/nucleus-dev/svc.yaml)
-      - derived from Deis Workflow managed Service
+  - [nucleus-stage](frankfurt/nucleus-stage/)
+    - [Namespace](frankfurt/nucleus-stage/ns.yaml)
+    - [Deployment](frankfurt/nucleus-stage/deploy.yaml)
+  - [nucleus-prod](frankfurt/nucleus-prod/)
+    - [Namespace](frankfurt/nucleus-prod/ns.yaml)
+    - [Deployment](frankfurt/nucleus-prod/deploy.yaml)
 - Cluster: [iowa-b](iowa-b/)
-  - [Namespace](iowa-b/nucleus-dev/nucleus-dev-ns.yaml): [nucleus-dev](iowa-b/nucleus-dev/)
-    - [Argo Tunnel](iowa-b/nucleus-dev/argo-tunnel.yaml)
-      - may want to move this to its own namespace in a future revision
+  - [nucleus-dev](iowa-b/nucleus-dev/)
+    - [Namespace](iowa-b/nucleus-dev/ns.yaml)
     - [Deployment](iowa-b/nucleus-dev/deploy.yaml)
-      - depends on secrets that are stored encrypted via [sops](https://github.com/mozilla/sops) in a private repo
-    - [Ingress](iowa-b/nucleus-dev/ingress.yaml)
-      - depends on Argo Tunnel created above and Service below
-    - [Service](iowa-b/nucleus-dev/svc.yaml)
-      - internal service, no public load balancer needed
+  - [nucleus-stage](iowa-b/nucleus-stage/)
+    - [Namespace](iowa-b/nucleus-stage/ns.yaml)
+    - [Deployment](iowa-b/nucleus-stage/deploy.yaml)
+  - [nucleus-prod](iowa-b/nucleus-prod/)
+    - [Namespace](iowa-b/nucleus-prod/ns.yaml)
+    - [Deployment](iowa-b/nucleus-prod/deploy.yaml)
