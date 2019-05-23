@@ -24,29 +24,29 @@
     - [Deployment](iowa-b/nucleus-prod/deploy.yaml)
 
 - CI/CD: [.gitlab-ci.yml](.gitlab-ci.yml)
-  - Git branch to deploy job mapping:
-    - master
+  - Git branch to [job](https://gitlab.com/mozmeao/nucleus-config/-/jobs) mapping:
+    - [master](https://github.com/mozmeao/nucleus-config/tree/master)
       - frankfurt dev
       - iowa-b dev
       - frankfurt stage
       - iowa-b stage
       - frankfurt prod
       - iowa-b prod
-    - frankfurt
+    - [frankfurt](https://github.com/mozmeao/nucleus-config/tree/frankfurt)
       - frankfurt dev
       - frankfurt stage
       - frankfurt prod
-    - iowa-b
+    - [iowa-b](https://github.com/mozmeao/nucleus-config/tree/iowa-b)
       - iowa-b dev
       - iowa-b stage
       - iowa-b prod
-    - stage
+    - [stage](https://github.com/mozmeao/nucleus-config/tree/stage)
       - frankfurt stage
       - iowa-b stage
-    - prod
+    - [prod](https://github.com/mozmeao/nucleus-config/tree/prod)
       - frankfurt prod
       - iowa-b prod
-    - frankfurt-prod
+    - [frankfurt-prod](https://github.com/mozmeao/nucleus-config/tree/frankfurt-prod)
       - frankfurt prod
-    - iowa-b-prod
+    - [iowa-b-prod](https://github.com/mozmeao/nucleus-config/tree/iowa-b-prod)
       - iowa-b prod
