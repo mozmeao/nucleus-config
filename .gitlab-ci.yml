@@ -1,16 +1,3 @@
-deploy iowa-b:
-  variables:
-    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
-  tags:
-    - gcp
-    - meao
-  only:
-    - master
-  script:
-    - kubectl_1.12 apply -f iowa-b/nucleus-dev
-    - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
-    - kubectl_1.12 apply -f iowa-b/nucleus-stage
-
 deploy frankfurt dev:
   variables:
     KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
@@ -24,6 +11,19 @@ deploy frankfurt dev:
   script:
     - kubectl_1.11 apply -f frankfurt/nucleus-dev
     - kubectl_1.11 rollout status -f frankfurt/nucleus-dev/deploy.yaml -w --timeout=10m
+
+deploy iowa-b dev:
+  variables:
+    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
+  tags:
+    - gcp
+    - meao
+  only:
+    - master
+    - iowa-b
+  script:
+    - kubectl_1.12 apply -f iowa-b/nucleus-dev
+    - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
 
 deploy frankfurt stage:
   variables:
@@ -40,6 +40,20 @@ deploy frankfurt stage:
     - kubectl_1.11 apply -f frankfurt/nucleus-stage
     - kubectl_1.11 rollout status -f frankfurt/nucleus-stage/deploy.yaml -w --timeout=10m
 
+deploy iowa-b stage:
+  variables:
+    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
+  tags:
+    - gcp
+    - meao
+  only:
+    - master
+    - iowa-b
+    - stage
+  script:
+    - kubectl_1.12 apply -f iowa-b/nucleus-stage
+    - kubectl_1.12 rollout status -f iowa-b/nucleus-stage/deploy.yaml -w --timeout=10m
+
 deploy frankfurt prod:
   variables:
     KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
@@ -55,3 +69,18 @@ deploy frankfurt prod:
   script:
     - kubectl_1.11 apply -f frankfurt/nucleus-prod
     - kubectl_1.11 rollout status -f frankfurt/nucleus-prod/deploy.yaml -w --timeout=10m
+
+deploy iowa-b prod:
+  variables:
+    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
+  tags:
+    - gcp
+    - meao
+  only:
+    - master
+    - iowa-b
+    - prod
+    - iowa-b-prod
+  script:
+    - kubectl_1.12 apply -f iowa-b/nucleus-prod
+    - kubectl_1.12 rollout status -f iowa-b/nucleus-prod/deploy.yaml -w --timeout=10m

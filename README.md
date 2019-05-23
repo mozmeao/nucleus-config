@@ -2,19 +2,51 @@
 
 ## Kubernetes YAML
 
-- Cluster: [frankfurt](frankfurt/)
-  - Namespace: [nucleus-dev](frankfurt/nucleus-dev/)
+- Cluster: [frankfurt](frankfurt/) in [AWS eu-central-1a](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1)
+  - [nucleus-dev](frankfurt/nucleus-dev/)
+    - [Namespace](frankfurt/nucleus-dev/ns.yaml)
     - [Deployment](frankfurt/nucleus-dev/deploy.yaml)
-      - derived from Deis Workflow managed Deployment
-    - [Service](frankfurt/nucleus-dev/svc.yaml)
-      - derived from Deis Workflow managed Service
-- Cluster: [iowa-b](iowa-b/)
-  - [Namespace](iowa-b/nucleus-dev/nucleus-dev-ns.yaml): [nucleus-dev](iowa-b/nucleus-dev/)
-    - [Argo Tunnel](iowa-b/nucleus-dev/argo-tunnel.yaml)
-      - may want to move this to its own namespace in a future revision
+  - [nucleus-stage](frankfurt/nucleus-stage/)
+    - [Namespace](frankfurt/nucleus-stage/ns.yaml)
+    - [Deployment](frankfurt/nucleus-stage/deploy.yaml)
+  - [nucleus-prod](frankfurt/nucleus-prod/)
+    - [Namespace](frankfurt/nucleus-prod/ns.yaml)
+    - [Deployment](frankfurt/nucleus-prod/deploy.yaml)
+- Cluster: [iowa-b](iowa-b/) in [GCP us-central-1b](https://console.cloud.google.com/kubernetes/clusters/details/us-central1-b/iowa-b?project=meao-202709)
+  - [nucleus-dev](iowa-b/nucleus-dev/)
+    - [Namespace](iowa-b/nucleus-dev/ns.yaml)
     - [Deployment](iowa-b/nucleus-dev/deploy.yaml)
-      - depends on secrets that are stored encrypted via [sops](https://github.com/mozilla/sops) in a private repo
-    - [Ingress](iowa-b/nucleus-dev/ingress.yaml)
-      - depends on Argo Tunnel created above and Service below
-    - [Service](iowa-b/nucleus-dev/svc.yaml)
-      - internal service, no public load balancer needed
+  - [nucleus-stage](iowa-b/nucleus-stage/)
+    - [Namespace](iowa-b/nucleus-stage/ns.yaml)
+    - [Deployment](iowa-b/nucleus-stage/deploy.yaml)
+  - [nucleus-prod](iowa-b/nucleus-prod/)
+    - [Namespace](iowa-b/nucleus-prod/ns.yaml)
+    - [Deployment](iowa-b/nucleus-prod/deploy.yaml)
+
+- CI/CD: [.gitlab-ci.yml](.gitlab-ci.yml)
+  - Git branch to deploy job mapping:
+    - master
+      - frankfurt dev
+      - iowa-b dev
+      - frankfurt stage
+      - iowa-b stage
+      - frankfurt prod
+      - iowa-b prod
+    - frankfurt
+      - frankfurt dev
+      - frankfurt stage
+      - frankfurt prod
+    - iowa-b
+      - iowa-b dev
+      - iowa-b stage
+      - iowa-b prod
+    - stage
+      - frankfurt stage
+      - iowa-b stage
+    - prod
+      - frankfurt prod
+      - iowa-b prod
+    - frankfurt-prod
+      - frankfurt prod
+    - iowa-b-prod
+      - iowa-b prod
