@@ -80,6 +80,7 @@ deploy iowa-b prod:
     - master
     - iowa-b
     - prod
+    - iowa-b-prod
   script:
     - kubectl_1.12 apply -f iowa-b/nucleus-prod
     - kubectl_1.12 rollout status -f iowa-b/nucleus-prod/deploy.yaml -w --timeout=10m

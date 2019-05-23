@@ -2,6 +2,27 @@
 
 ## Kubernetes YAML
 
+- Cluster: [frankfurt](frankfurt/) in [AWS eu-central-1a](https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1)
+  - [nucleus-dev](frankfurt/nucleus-dev/)
+    - [Namespace](frankfurt/nucleus-dev/ns.yaml)
+    - [Deployment](frankfurt/nucleus-dev/deploy.yaml)
+  - [nucleus-stage](frankfurt/nucleus-stage/)
+    - [Namespace](frankfurt/nucleus-stage/ns.yaml)
+    - [Deployment](frankfurt/nucleus-stage/deploy.yaml)
+  - [nucleus-prod](frankfurt/nucleus-prod/)
+    - [Namespace](frankfurt/nucleus-prod/ns.yaml)
+    - [Deployment](frankfurt/nucleus-prod/deploy.yaml)
+- Cluster: [iowa-b](iowa-b/) in [GCP us-central-1b](https://console.cloud.google.com/kubernetes/clusters/details/us-central1-b/iowa-b?project=meao-202709)
+  - [nucleus-dev](iowa-b/nucleus-dev/)
+    - [Namespace](iowa-b/nucleus-dev/ns.yaml)
+    - [Deployment](iowa-b/nucleus-dev/deploy.yaml)
+  - [nucleus-stage](iowa-b/nucleus-stage/)
+    - [Namespace](iowa-b/nucleus-stage/ns.yaml)
+    - [Deployment](iowa-b/nucleus-stage/deploy.yaml)
+  - [nucleus-prod](iowa-b/nucleus-prod/)
+    - [Namespace](iowa-b/nucleus-prod/ns.yaml)
+    - [Deployment](iowa-b/nucleus-prod/deploy.yaml)
+
 - CI/CD: [.gitlab-ci.yml](.gitlab-ci.yml)
   - Git branch to deploy job mapping:
     - master
@@ -25,23 +46,7 @@
     - prod
       - frankfurt prod
       - iowa-b prod
-- Cluster: [frankfurt](frankfurt/)
-  - [nucleus-dev](frankfurt/nucleus-dev/)
-    - [Namespace](frankfurt/nucleus-dev/ns.yaml)
-    - [Deployment](frankfurt/nucleus-dev/deploy.yaml)
-  - [nucleus-stage](frankfurt/nucleus-stage/)
-    - [Namespace](frankfurt/nucleus-stage/ns.yaml)
-    - [Deployment](frankfurt/nucleus-stage/deploy.yaml)
-  - [nucleus-prod](frankfurt/nucleus-prod/)
-    - [Namespace](frankfurt/nucleus-prod/ns.yaml)
-    - [Deployment](frankfurt/nucleus-prod/deploy.yaml)
-- Cluster: [iowa-b](iowa-b/)
-  - [nucleus-dev](iowa-b/nucleus-dev/)
-    - [Namespace](iowa-b/nucleus-dev/ns.yaml)
-    - [Deployment](iowa-b/nucleus-dev/deploy.yaml)
-  - [nucleus-stage](iowa-b/nucleus-stage/)
-    - [Namespace](iowa-b/nucleus-stage/ns.yaml)
-    - [Deployment](iowa-b/nucleus-stage/deploy.yaml)
-  - [nucleus-prod](iowa-b/nucleus-prod/)
-    - [Namespace](iowa-b/nucleus-prod/ns.yaml)
-    - [Deployment](iowa-b/nucleus-prod/deploy.yaml)
+    - frankfurt-prod
+      - frankfurt prod
+    - iowa-b-prod
+      - iowa-b prod
