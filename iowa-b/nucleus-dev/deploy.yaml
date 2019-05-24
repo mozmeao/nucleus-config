@@ -30,6 +30,8 @@ spec:
       - env:
         - name: ALLOWED_HOSTS
           value: "*"
+        - name: CLUSTER_NAME
+          value: "iowa-b"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
