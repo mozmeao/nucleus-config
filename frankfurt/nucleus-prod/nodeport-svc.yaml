@@ -16,7 +16,7 @@ spec:
     targetPort: 8000
   selector:
     app: nucleus-prod
-    type: cmd
+    type: web
   sessionAffinity: None
   type: NodePort
 status:
