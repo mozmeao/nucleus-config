@@ -39,6 +39,10 @@ spec:
               name: nucleus-dev-secrets
         - name: DEBUG
           value: "False"
+        - name: DISABLE_SSL
+          value: "true"
+        - name: HTTPS
+          value: "on"
         - name: K8S_NAMESPACE
           valueFrom:
             fieldRef:
@@ -47,10 +51,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: DISABLE_SSL
-          value: "true"
-        - name: HTTPS
-          value: "on"
         - name: NEW_RELIC_APP_NAME
           value: nucleus-dev-frankfurt
         - name: NEW_RELIC_CONFIG_FILE
