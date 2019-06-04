@@ -87,7 +87,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-dev-secrets
-        image: mozmeao/nucleus:9d1f4b578180288cb41cebb0a5e12ad1825bad1e
+        image: mozmeao/nucleus:d6b4b1ef0a2d8b2e8f64659b6b810dacc5b13a10
         imagePullPolicy: Always
         name: nucleus-dev-web
         readinessProbe:
@@ -103,7 +103,7 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       - name: cloudflared
-        image: mozmeao/nucleus:9d1f4b578180288cb41cebb0a5e12ad1825bad1e
+        image: mozmeao/nucleus:d6b4b1ef0a2d8b2e8f64659b6b810dacc5b13a10
         imagePullPolicy: Always
         command: ["cloudflared", "tunnel"]
         args:
