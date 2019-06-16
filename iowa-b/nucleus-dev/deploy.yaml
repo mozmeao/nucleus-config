@@ -87,7 +87,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-dev-secrets
-        image: mozmeao/nucleus:b2f12e261ba26d3c8fcbaabc8e5b825514d364f2
+        image: mozmeao/nucleus:33c49207459ab56590b997c7e7247018e081fad6
         imagePullPolicy: Always
         name: nucleus-dev-web
         readinessProbe:
