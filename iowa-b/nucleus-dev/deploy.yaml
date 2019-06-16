@@ -103,7 +103,7 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       - name: cloudflared
-        image: mozmeao/nucleus:b2f12e261ba26d3c8fcbaabc8e5b825514d364f2
+        image: mozmeao/cloudflared:25a04e0
         imagePullPolicy: Always
         command: ["cloudflared", "tunnel"]
         args:
