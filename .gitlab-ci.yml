@@ -6,8 +6,9 @@ deploy frankfurt dev:
     - frankfurt
     - meao
   only:
-    - master
+    - dev
     - frankfurt
+    - frankfurt-dev
   script:
     - kubectl_1.11 apply -f frankfurt/nucleus-dev
     # --timeout requires kubectl 1.12+
@@ -20,8 +21,8 @@ deploy iowa-b dev:
     - gcp
     - meao
   only:
-    - master
     - iowa-b
+    - iowa-b-dev
   script:
     - kubectl_1.12 apply -f iowa-b/nucleus-dev
     - kubectl_1.12 rollout status -f iowa-b/nucleus-dev/deploy.yaml -w --timeout=10m
@@ -34,8 +35,8 @@ deploy frankfurt stage:
     - frankfurt
     - meao
   only:
-    - master
     - frankfurt
+    - frankfurt-stage
     - stage
   script:
     - kubectl_1.11 apply -f frankfurt/nucleus-stage
@@ -49,8 +50,8 @@ deploy iowa-b stage:
     - gcp
     - meao
   only:
-    - master
     - iowa-b
+    - iowa-b-stage
     - stage
   script:
     - kubectl_1.12 apply -f iowa-b/nucleus-stage
@@ -64,10 +65,9 @@ deploy frankfurt prod:
     - frankfurt
     - meao
   only:
-    - master
     - frankfurt
-    - prod
     - frankfurt-prod
+    - prod
   script:
     - kubectl_1.11 apply -f frankfurt/nucleus-prod
     # --timeout requires kubectl 1.12+
@@ -80,10 +80,9 @@ deploy iowa-b prod:
     - gcp
     - meao
   only:
-    - master
     - iowa-b
-    - prod
     - iowa-b-prod
+    - prod
   script:
     - kubectl_1.12 apply -f iowa-b/nucleus-prod
     - kubectl_1.12 rollout status -f iowa-b/nucleus-prod/deploy.yaml -w --timeout=10m
