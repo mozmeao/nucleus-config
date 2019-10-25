@@ -103,8 +103,9 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
           successThreshold: 1
-          tcpSocket:
-            port: 8000
+          httpGet:
+            path: /
+            scheme: HTTP
           timeoutSeconds: 5
         resources: {}
         terminationMessagePath: /dev/termination-log
