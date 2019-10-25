@@ -103,8 +103,9 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
           successThreshold: 1
-          # may want to switch this to http later
-          tcpSocket:
+          httpGet:
+            path: /
+            scheme: HTTP
             port: 8000
           timeoutSeconds: 5
         resources: {}
