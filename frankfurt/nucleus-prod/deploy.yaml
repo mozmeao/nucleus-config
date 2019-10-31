@@ -7,7 +7,7 @@ metadata:
   name: nucleus-prod
   namespace: nucleus-prod
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: nucleus-prod
