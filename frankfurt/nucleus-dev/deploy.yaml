@@ -98,9 +98,9 @@ spec:
         image: mozmeao/nucleus:ab5dde44719b47650516728d945da865f39beb86
         imagePullPolicy: Always
         name: nucleus-dev-web
-        readinessProbe:
-          failureThreshold: 1
-          initialDelaySeconds: 5
+        livenessProbe:
+          failureThreshold: 2
+          initialDelaySeconds: 10
           periodSeconds: 5
           successThreshold: 1
           httpGet:
