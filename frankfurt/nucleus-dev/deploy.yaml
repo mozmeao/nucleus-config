@@ -41,6 +41,8 @@ spec:
           value: "False"
         - name: DISABLE_SSL
           value: "true"
+        - name: GITHUB_OUTPUT_REPO
+          value: "mozmeao/nucleus-dev-data"
         - name: HTTPS
           value: "on"
         - name: K8S_NAMESPACE
