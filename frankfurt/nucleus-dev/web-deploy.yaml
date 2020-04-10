@@ -4,7 +4,7 @@ metadata:
   labels:
     app: nucleus-dev
     type: web
-  name: nucleus-dev
+  name: nucleus-dev-web
   namespace: nucleus-dev
 spec:
   replicas: 1
@@ -23,11 +23,16 @@ spec:
       labels:
         app: nucleus-dev
         type: web
-      name: nucleus-dev
+      name: nucleus-dev-web
       namespace: nucleus-dev
     spec:
       containers:
-      - env:
+      - args:
+          - bin/run-prod.sh
+        command:
+          - /bin/bash
+          - -c
+        env:
         - name: ALLOWED_HOSTS
           value: "*"
         - name: CLUSTER_NAME
@@ -115,7 +120,13 @@ spec:
             scheme: HTTP
             port: 8000
           timeoutSeconds: 5
-        resources: {}
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1200Mi
+          requests:
+            cpu: 250m
+            memory: 600Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst

@@ -8,18 +8,8 @@ stages:
     - frankfurt
     - meao
   script:
-    - kubectl_1.11 apply -f ${DEPLOYMENT}
-    # --timeout requires kubectl 1.12+
-    - kubectl_1.11 rollout status -f ${DEPLOYMENT}/deploy.yaml -w
-
-.deploy-gcp:
-  stage: deploy
-  tags:
-    - gcp
-    - meao
-  script:
-    - kubectl_1.12 apply -f ${DEPLOYMENT}
-    - kubectl_1.12 rollout status -f ${DEPLOYMENT}/deploy.yaml -w --timeout=10m
+    - kubectl apply -f ${DEPLOYMENT}
+    - ./rollout-status.sh ${DEPLOYMENT}
 
 deploy frankfurt dev:
   extends: .deploy-aws
@@ -29,15 +19,8 @@ deploy frankfurt dev:
   only:
     changes:
       - frankfurt/nucleus-dev/*
-    
-deploy iowa-b dev:
-  extends: .deploy-gcp
-  variables:
-    DEPLOYMENT: iowa-b/nucleus-dev
-    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
-  only:
-    changes:
-      - iowa-b/nucleus-dev/*
+    refs:
+      - master
 
 deploy frankfurt stage:
   extends: .deploy-aws
@@ -47,15 +30,8 @@ deploy frankfurt stage:
   only:
     changes:
       - frankfurt/nucleus-stage/*
-
-deploy iowa-b stage:
-  extends: .deploy-gcp
-  variables:
-    DEPLOYMENT: iowa-b/nucleus-stage
-    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
-  only:
-    changes:
-      - iowa-b/nucleus-stage/*
+    refs:
+      - master
 
 deploy frankfurt prod:
   extends: .deploy-aws
@@ -65,12 +41,5 @@ deploy frankfurt prod:
   only:
     changes:
       - frankfurt/nucleus-prod/*
-
-deploy iowa-b prod:
-  extends: .deploy-gcp
-  variables:
-    DEPLOYMENT: iowa-b/nucleus-prod
-    KUBECONFIG: /home/gitlab-runner/.kube/iowa-b.kubeconfig
-  only:
-    changes:
-      - iowa-b/nucleus-prod/*
+    refs:
+      - master
