@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: nucleus-stage
-spec:
-  finalizers:
-  - kubernetes
-status:
-  phase: Active
