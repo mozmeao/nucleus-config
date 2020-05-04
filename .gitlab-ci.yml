@@ -5,8 +5,7 @@ stages:
   stage: deploy
   tags:
     - aws
-    - frankfurt
-    - meao
+    - mozmeao
   script:
     - kubectl apply -f ${DEPLOYMENT}
     - ./rollout-status.sh ${DEPLOYMENT}
