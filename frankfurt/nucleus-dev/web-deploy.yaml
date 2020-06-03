@@ -114,7 +114,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-dev-secrets
-        image: mozmeao/nucleus:d6f88b89
+        image: mozmeao/nucleus:e4cec076
         imagePullPolicy: Always
         name: nucleus-dev-web
         livenessProbe:
