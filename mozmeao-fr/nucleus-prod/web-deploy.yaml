@@ -1,59 +1,45 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: nucleus-dev
+    app: nucleus-prod
     type: web
-  name: nucleus-dev-web
-  namespace: nucleus-dev
+  name: nucleus-prod
+  namespace: nucleus-prod
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
-      app: nucleus-dev
+      app: nucleus-prod
       type: web
   strategy:
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 2
       maxUnavailable: 0
     type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: nucleus-dev
+        app: nucleus-prod
         type: web
-      name: nucleus-dev-web
-      namespace: nucleus-dev
+      name: nucleus-prod
+      namespace: nucleus-prod
     spec:
       containers:
-      - args:
-          - bin/run-prod.sh
-        command:
-          - /bin/bash
-          - -c
-        env:
+      - env:
         - name: ALLOWED_HOSTS
           value: "*"
         - name: CLUSTER_NAME
-          value: "frankfurt"
+          value: "mozmeao-fr"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
               key: database-url
-              name: nucleus-dev-secrets
+              name: nucleus-prod-secrets
         - name: DEBUG
           value: "False"
         - name: DISABLE_SSL
-          value: "true"
-        - name: GITHUB_ACCESS_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: github-access-token
-              name: nucleus-dev-secrets
-        - name: GITHUB_OUTPUT_REPO
-          value: "mozmeao/nucleus-dev-data"
-        - name: GITHUB_PUSH_ENABLE
           value: "true"
         - name: HTTPS
           value: "on"
@@ -66,14 +52,14 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: NEW_RELIC_APP_NAME
-          value: nucleus-dev-frankfurt
+          value: nucleus-prod-mozmeao-fr
         - name: NEW_RELIC_CONFIG_FILE
           value: /app/newrelic.ini
         - name: NEW_RELIC_LICENSE_KEY
           valueFrom:
             secretKeyRef:
               key: new-relic-license-key
-              name: nucleus-dev-secrets
+              name: nucleus-prod-secrets
         - name: OIDC_ENABLE
           value: "True"
         - name: OIDC_OP_AUTHORIZATION_ENDPOINT
@@ -86,17 +72,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: oidc-rp-client-id
-              name: nucleus-dev-secrets
+              name: nucleus-prod-secrets
         - name: OIDC_RP_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
               key: oidc-rp-client-secret
-              name: nucleus-dev-secrets
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              key: redis-url
-              name: nucleus-dev-secrets
+              name: nucleus-prod-secrets
         - name: RNA_JSON_CACHE_TIME
           value: "120"
         - name: SAML_CREATE_USER
@@ -104,19 +85,19 @@ spec:
         - name: SAML_ENABLE
           value: "True"
         - name: SAML_ENTITY_ID
-          value: nucleus-dev.frankfurt.moz.works/saml2/metadata/
+          value: nucleus-prod.frankfurt.moz.works/saml2/metadata/
         - name: SAML_REMOTE_METADATA
-          value: stage.xml
+          value: prod.xml
         - name: SAML_SSO_URL
-          value: https://nucleus-dev.frankfurt.moz.works/saml2/acs/
+          value: https://nucleus-prod.frankfurt.moz.works/saml2/acs/
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret-key
-              name: nucleus-dev-secrets
-        image: mozmeao/nucleus:ca44404f
+              name: nucleus-prod-secrets
+        image: mozmeao/nucleus:9d1f4b578180288cb41cebb0a5e12ad1825bad1e
         imagePullPolicy: Always
-        name: nucleus-dev-web
+        name: nucleus-prod-web
         livenessProbe:
           failureThreshold: 2
           initialDelaySeconds: 10
@@ -127,13 +108,7 @@ spec:
             scheme: HTTP
             port: 8000
           timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: "1"
-            memory: 1200Mi
-          requests:
-            cpu: 250m
-            memory: 600Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst

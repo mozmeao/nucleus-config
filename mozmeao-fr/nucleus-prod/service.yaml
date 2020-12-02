@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nucleus-prod
+  labels:
+    run: nucleus-prod
+  annotations:
+     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+     service.beta.kubernetes.io/aws-load-balancer-ssl-cert:  "arn:aws:acm:eu-central-1:236517346949:certificate/73da790d-5c41-47c5-b032-fd65674804ee"
+     external-dns.alpha.kubernetes.io/hostname: "nucleus.moz.works"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8000
+    protocol: TCP
+  selector:
+    app: nucleus-prod
+    type: web
