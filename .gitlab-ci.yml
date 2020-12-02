@@ -13,32 +13,32 @@ stages:
 deploy frankfurt dev:
   extends: .deploy-aws
   variables:
-    DEPLOYMENT: frankfurt/nucleus-dev
-    KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
+    DEPLOYMENT: mozmeao-fr/nucleus-dev
+    KUBECONFIG: /home/gitlab-runner/.kube/mozmeao-fr-1.kubeconfig
   only:
     changes:
-      - frankfurt/nucleus-dev/*
+      - mozmeao-fr/nucleus-dev/*
     refs:
       - master
 
 deploy frankfurt stage:
   extends: .deploy-aws
   variables:
-    DEPLOYMENT: frankfurt/nucleus-stage
-    KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
+    DEPLOYMENT: mozmeao-fr/nucleus-stage
+    KUBECONFIG: /home/gitlab-runner/.kube/mozmeao-fr-1.kubeconfig
   only:
     changes:
-      - frankfurt/nucleus-stage/*
+      - mozmeao-fr/nucleus-stage/*
     refs:
       - master
 
 deploy frankfurt prod:
   extends: .deploy-aws
   variables:
-    DEPLOYMENT: frankfurt/nucleus-prod
-    KUBECONFIG: /home/gitlab-runner/.kube/frankfurt.kubeconfig
+    DEPLOYMENT: mozmeao-fr/nucleus-prod
+    KUBECONFIG: /home/gitlab-runner/.kube/mozmeao-fr-1.kubeconfig
   only:
     changes:
-      - frankfurt/nucleus-prod/*
+      - mozmeao-fr/nucleus-prod/*
     refs:
       - master

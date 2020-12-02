@@ -1,17 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: nucleus-dev
-    type: worker
-  name: nucleus-dev-worker
+    type: web
+  name: nucleus-dev-web
   namespace: nucleus-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nucleus-dev
-      type: worker
+      type: web
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -22,13 +22,13 @@ spec:
       creationTimestamp: null
       labels:
         app: nucleus-dev
-        type: worker
-      name: nucleus-dev-worker
+        type: web
+      name: nucleus-dev-web
       namespace: nucleus-dev
     spec:
       containers:
       - args:
-          - bin/run-worker.sh
+          - bin/run-prod.sh
         command:
           - /bin/bash
           - -c
@@ -36,7 +36,7 @@ spec:
         - name: ALLOWED_HOSTS
           value: "*"
         - name: CLUSTER_NAME
-          value: "frankfurt"
+          value: "mozmeao-fr"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
@@ -66,7 +66,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: NEW_RELIC_APP_NAME
-          value: nucleus-dev-frankfurt
+          value: nucleus-dev-mozmeao-fr
         - name: NEW_RELIC_CONFIG_FILE
           value: /app/newrelic.ini
         - name: NEW_RELIC_LICENSE_KEY
@@ -116,10 +116,20 @@ spec:
               name: nucleus-dev-secrets
         image: mozmeao/nucleus:ca44404f
         imagePullPolicy: Always
-        name: nucleus-dev-worker
+        name: nucleus-dev-web
+        livenessProbe:
+          failureThreshold: 2
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          successThreshold: 1
+          httpGet:
+            path: /
+            scheme: HTTP
+            port: 8000
+          timeoutSeconds: 5
         resources:
           limits:
-            cpu: 500m
+            cpu: "1"
             memory: 1200Mi
           requests:
             cpu: 250m
