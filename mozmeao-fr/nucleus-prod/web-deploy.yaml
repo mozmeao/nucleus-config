@@ -95,7 +95,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-prod-secrets
-        image: mozmeao/nucleus:9d1f4b578180288cb41cebb0a5e12ad1825bad1e
+        image: mozmeao/nucleus:f120d80e
         imagePullPolicy: Always
         name: nucleus-prod-web
         livenessProbe:
