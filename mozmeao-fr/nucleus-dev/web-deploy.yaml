@@ -114,6 +114,8 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-dev-secrets
+        - name: WSGI_WORKER_CLASS
+          value: sync
         image: mozmeao/nucleus:41236207
         imagePullPolicy: Always
         name: nucleus-dev-web
