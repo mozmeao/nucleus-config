@@ -116,7 +116,7 @@ spec:
               name: nucleus-dev-secrets
         - name: WSGI_WORKER_CLASS
           value: sync
-        image: mozmeao/nucleus:41236207
+        image: mozmeao/nucleus:6c8370c5
         imagePullPolicy: Always
         name: nucleus-dev-web
         livenessProbe:
