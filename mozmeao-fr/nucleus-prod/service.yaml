@@ -5,7 +5,7 @@ metadata:
   labels:
     run: nucleus-prod
   annotations:
-     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
      service.beta.kubernetes.io/aws-load-balancer-ssl-cert:  "arn:aws:acm:eu-central-1:236517346949:certificate/73da790d-5c41-47c5-b032-fd65674804ee"
      external-dns.alpha.kubernetes.io/hostname: "nucleus.moz.works"
   namespace: nucleus-prod
