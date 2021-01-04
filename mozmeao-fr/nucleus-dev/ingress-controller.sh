@@ -6,7 +6,7 @@ helm repo update
 HELMOPTIONS=$(cat << EOM
   --namespace $NS \
   -f $DEPLOYMENT/helm_configs/ingress.yml \
-  mozmeao-ingress ingress-nginx/ingress-nginx
+  nucleus-dev-ingress ingress-nginx/ingress-nginx
 EOM
 )
 
