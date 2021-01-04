@@ -6,7 +6,10 @@ stages:
   tags:
     - aws
     - mozmeao
+  variables:
+    INGRESSFILENAME: ingress-controller.sh
   script:
+    - if [ -f "${DEPLOYMENT}/${INGRESSFILENAME}" ]; then ./${DEPLOYMENT}/${INGRESSFILENAME} ; fi
     - kubectl apply -f ${DEPLOYMENT}
     - ./rollout-status.sh ${DEPLOYMENT}
 
@@ -20,6 +23,7 @@ deploy frankfurt dev:
       - mozmeao-fr/nucleus-dev/*
     refs:
       - master
+      - pipelinedevbranch # temp testing
 
 deploy frankfurt stage:
   extends: .deploy-aws
