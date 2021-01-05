@@ -2,6 +2,7 @@ apiVersion: cert-manager.io/v1alpha2
 kind: Issuer
 metadata:
   name: letsencrypt
+  namespace: nucleus-dev
 spec:
   acme:
     # You must replace this email address with your own.
@@ -21,6 +22,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nucleus-dev-ingress
+  namespace: nucleus-dev
 spec:
   ports:
   - port: 8000
@@ -36,6 +38,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/issuer: letsencrypt
   name: nucleus-dev
+  namespace: nucleus-dev
 spec:
   rules:
     - host: "nucleus.dev.fr.moz.works"
