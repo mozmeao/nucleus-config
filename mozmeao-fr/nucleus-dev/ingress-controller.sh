@@ -15,4 +15,3 @@ echo "$HELMOPTIONS"
 
 # shellcheck disable=SC2086
 helm upgrade --install $HELMOPTIONS
-
