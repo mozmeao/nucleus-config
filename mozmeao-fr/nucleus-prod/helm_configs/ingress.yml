@@ -2,7 +2,7 @@ controller:
   useIngressClassOnly: true
   service:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: "nucleus.prod.fr.moz.works"
+      external-dns.alpha.kubernetes.io/hostname: "nucleus.prod.fr.moz.works,nucleus.moz.works"
       service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
       service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
       service.beta.kubernetes.io/aws-load-balancer-type: "nlb"

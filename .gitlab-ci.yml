@@ -24,7 +24,6 @@ deploy frankfurt dev:
       - mozmeao-fr/nucleus-dev/*
     refs:
       - master
-      - tcp_backend
 
 deploy frankfurt stage:
   extends: .deploy-aws
