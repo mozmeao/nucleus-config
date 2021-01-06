@@ -6,7 +6,10 @@ stages:
   tags:
     - aws
     - mozmeao
+  variables:
+    INGRESSFILENAME: ingress-controller.sh
   script:
+    - if [ -f "${DEPLOYMENT}/${INGRESSFILENAME}" ]; then ./${DEPLOYMENT}/${INGRESSFILENAME} ; fi
     - kubectl apply -f ${DEPLOYMENT}
     - ./rollout-status.sh ${DEPLOYMENT}
 
@@ -15,6 +18,7 @@ deploy frankfurt dev:
   variables:
     DEPLOYMENT: mozmeao-fr/nucleus-dev
     KUBECONFIG: /home/gitlab-runner/.kube/mozmeao-fr-1.kubeconfig
+    NS: nucleus-dev
   only:
     changes:
       - mozmeao-fr/nucleus-dev/*
@@ -25,7 +29,8 @@ deploy frankfurt stage:
   extends: .deploy-aws
   variables:
     DEPLOYMENT: mozmeao-fr/nucleus-stage
-    KUBECONFIG: /home/gitlab-runner/.kube/mozmeao-fr-1.kubeconfig
+
+    NS: nucleus-stage
   only:
     changes:
       - mozmeao-fr/nucleus-stage/*
@@ -37,6 +42,7 @@ deploy frankfurt prod:
   variables:
     DEPLOYMENT: mozmeao-fr/nucleus-prod
     KUBECONFIG: /home/gitlab-runner/.kube/mozmeao-fr-1.kubeconfig
+    NS: nucleus-prod
   only:
     changes:
       - mozmeao-fr/nucleus-prod/*
