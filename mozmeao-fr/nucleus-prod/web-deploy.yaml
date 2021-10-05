@@ -97,7 +97,7 @@ spec:
               name: nucleus-prod-secrets
         - name: SENTRY_DSN
           value: https://dee8ab6a24ab48b5a1ec3ad78ba66e8b@sentry.prod.mozaws.net/134
-        image: mozmeao/nucleus:b9b01233
+        image: mozmeao/nucleus:c8824330
         imagePullPolicy: Always
         name: nucleus-prod-web
         livenessProbe:
