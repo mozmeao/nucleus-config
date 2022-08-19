@@ -87,7 +87,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-stage-secrets
-        image: mozmeao/nucleus:b26b2a97e2e8fd15ee6cf909e2db4da88fc5eae9
+        image: mozmeao/nucleus:2bedea88
         imagePullPolicy: Always
         name: nucleus-stage-web
         livenessProbe:
