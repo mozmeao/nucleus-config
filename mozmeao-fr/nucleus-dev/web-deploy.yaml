@@ -92,11 +92,6 @@ spec:
             secretKeyRef:
               key: oidc-rp-client-secret
               name: nucleus-dev-secrets
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              key: redis-url
-              name: nucleus-dev-secrets
         - name: RNA_JSON_CACHE_TIME
           value: "120"
         - name: SAML_CREATE_USER
