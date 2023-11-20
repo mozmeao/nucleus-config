@@ -53,8 +53,6 @@ spec:
               name: nucleus-dev-secrets
         - name: GITHUB_OUTPUT_REPO
           value: "mozmeao/nucleus-dev-data"
-        - name: GITHUB_PUSH_ENABLE
-          value: "true"
         - name: HTTPS
           value: "on"
         - name: K8S_NAMESPACE
