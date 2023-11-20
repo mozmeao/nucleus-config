@@ -53,8 +53,6 @@ spec:
               name: nucleus-dev-secrets
         - name: GITHUB_OUTPUT_REPO
           value: "mozmeao/nucleus-dev-data"
-        - name: GITHUB_PUSH_ENABLE
-          value: "true"
         - name: HTTPS
           value: "on"
         - name: K8S_NAMESPACE
@@ -91,11 +89,6 @@ spec:
           valueFrom:
             secretKeyRef:
               key: oidc-rp-client-secret
-              name: nucleus-dev-secrets
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              key: redis-url
               name: nucleus-dev-secrets
         - name: RNA_JSON_CACHE_TIME
           value: "120"
