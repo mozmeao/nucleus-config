@@ -107,7 +107,7 @@ spec:
             secretKeyRef:
               key: secret-key
               name: nucleus-dev-secrets
-        image: mozmeao/nucleus:96f331a6
+        image: mozmeao/nucleus:c2c928d3
         imagePullPolicy: Always
         name: nucleus-dev-worker
         resources:
